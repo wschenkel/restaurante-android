@@ -8,6 +8,14 @@
     tools:context="com.example.krauser.restauranteandroid.MainActivity"
     android:weightSum="1">
 
+    <Button
+        android:id="@+id/novoPedidoButton"
+        style="@android:style/Widget.Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Novo Pedido"
+        android:visibility="visible" />
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -29,13 +37,7 @@
                 android:id="@+id/itemTitulo"/>
                 />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 
-    <Button
-        android:id="@+id/novoPedidoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Novo Pedido"
-        android:layout_weight="17.80" />
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
