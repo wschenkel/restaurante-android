@@ -1,10 +1,12 @@
 package com.example.krauser.restauranteandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.krauser.restauranteandroid.R;
@@ -57,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(new PedidoListAdapter(itens, this));
 
+        Button novoPedido = (Button) findViewById(R.id.buttonNovoPedido);
+        novoPedido.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent it = new Intent(MainActivity.this, NovoPedido.class);
+                startActivity(it);
+            }
+        });
 
 
 //        String urlImage = "https://institucional-statics-files.s3.amazonaws.com/Prime-Rib-Pasta-cmyk-massas.jpg";
@@ -66,13 +75,9 @@ public class MainActivity extends AppCompatActivity {
 //        cardView = (CardView)findViewById(R.id.cardView);
 //        cardView.getBackground().setAlpha(128);
 //
-//        Button novoPedido = (Button) findViewById(R.id.novoPedidoButton);
-//        novoPedido.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent it = new Intent(MainActivity.this, NovoPedido.class);
-//                startActivity(it);
-//            }
-//        });
+
+
+
 
     }
 }
