@@ -1,14 +1,17 @@
 package com.example.krauser.restauranteandroid.activity;
 
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.adapter.PedidoListAdapter;
+import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositorio;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
 import java.text.Format;
@@ -28,36 +31,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Pedidos");
+        List<Pedido> pedidos = new ArrayList<>();
+        try{
+            PedidoRepositorio repositorio = new PedidoRepositorio(this);
+            pedidos = repositorio.obterTodos();
+        }catch(Exception ex){
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
-        List<Pedido> itens = new ArrayList<>();
-
-        Pedido pedido = new Pedido();
-        pedido.resumo = "Vinho, Massa carbonara, Costelinha com molho barbecue ...";
-        pedido.mesa = 18;
-
-        Format formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
-        Date date = new Date();
-
-        pedido.data = formatter.format(date);
-
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
-        itens.add(pedido);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new PedidoListAdapter(itens, this));
-
-
+        recyclerView.setAdapter(new PedidoListAdapter(pedidos, this));
 
 //        String urlImage = "https://institucional-statics-files.s3.amazonaws.com/Prime-Rib-Pasta-cmyk-massas.jpg";
 //        ImageView img = (ImageView)findViewById(R.id.imgItem);

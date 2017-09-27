@@ -1,7 +1,5 @@
 package com.example.krauser.restauranteandroid.model;
 
-import java.util.Date;
-
 public class Pedido {
 
     public int id;
@@ -12,13 +10,14 @@ public class Pedido {
     public String observacao;
     public String data;
 
-    public static String getCreateTableSql(){
-        String sql = "CREATE TABLE Pedido (" +
+    public static String getSqlCreateTable(){
+        String sql = "CREATE TABLE pedido (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nome TEXT, " +
                 "mesa INTEGER, " +
                 "total FLOAT, " +
                 "resumo TEXT, " +
+                "data TEXT, " +
                 "observacao TEXT)";
         return sql;
     }

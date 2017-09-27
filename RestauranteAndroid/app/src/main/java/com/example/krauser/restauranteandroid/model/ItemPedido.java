@@ -15,7 +15,7 @@ public class ItemPedido {
         this.descricao = descricao;
     }
 
-    public static String getCreateTableSql(){
+    public static String getSqlCreateTable(){
         String sql = "CREATE TABLE item (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nome TEXT, " +
