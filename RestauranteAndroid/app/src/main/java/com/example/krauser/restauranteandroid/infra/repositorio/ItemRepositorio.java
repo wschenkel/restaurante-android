@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.krauser.restauranteandroid.Constants;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Item;
 
@@ -17,7 +18,7 @@ public class ItemRepositorio {
     public ItemRepositorio(Context c){
         create = new CreateDatabase(c);
     }
-    private String tbName = Item.TABLE_NAME;
+    private String tbName = Constants.ITEM_TABLE;
 
     public void inserir(Item item) {
         ContentValues values = new ContentValues();
@@ -43,7 +44,7 @@ public class ItemRepositorio {
         Cursor cursor;
         String[] campos =  {"id", "titulo", "descricao", "urlImagem"};
         SQLiteDatabase db = create.getReadableDatabase();
-        cursor = db.query("itemPedido", campos, null, null, null, null, null);
+        cursor = db.query("item", campos, null, null, null, null, null);
 
         int count = 0;
         cursor.moveToFirst();

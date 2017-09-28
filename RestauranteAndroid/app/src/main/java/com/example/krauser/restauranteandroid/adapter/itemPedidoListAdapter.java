@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.model.Item;
-import com.example.krauser.restauranteandroid.model.ItemPedido;
 
 import java.util.List;
 

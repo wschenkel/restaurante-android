@@ -2,7 +2,6 @@ package com.example.krauser.restauranteandroid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,13 +16,14 @@ import com.example.krauser.restauranteandroid.model.Pedido;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setTitle("Pedidos");
 
         List<Pedido> pedidos = new ArrayList<>();
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             PedidoRepositorio repositorio = new PedidoRepositorio(this);
             pedidos = repositorio.obterTodos();
         }catch(Exception ex){
+            String msg = ex.getMessage();
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
 

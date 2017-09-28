@@ -6,45 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/txtNome"
-        android:layout_width="368dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Nome"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp" />
+        android:id="@+id/linLayout"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/txtNumeroMesa"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Número da mesa"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <EditText
+                android:id="@+id/txtNome"
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:hint="Nome"
+                android:inputType="textPersonName"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <EditText
+                android:id="@+id/txtNumeroMesa"
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:hint="Número da mesa"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
         android:background="#ffffff"
-        app:layout_constraintLeft_toLeftOf="@+id/txtNumeroMesa"
-        app:layout_constraintRight_toRightOf="@+id/txtNumeroMesa"
-        app:layout_constraintTop_toBottomOf="@+id/txtNumeroMesa"
+        app:layout_constraintLeft_toLeftOf="@+id/linLayout"
+        app:layout_constraintRight_toRightOf="@+id/linLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linLayout"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintHorizontal_bias="0.0"
@@ -89,7 +89,7 @@
         android:text="Resumo do pedido"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNumeroMesa"
+        app:layout_constraintTop_toBottomOf="@+id/linLayout"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
 
@@ -119,6 +119,6 @@
         android:layout_marginStart="8dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="1dp" />
+        android:layout_marginLeft="8dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.krauser.restauranteandroid.Constants;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
@@ -35,7 +36,7 @@ public class PedidoRepositorio {
         values.put("data", pedido.data);
 
         try{
-            db.insertOrThrow(Pedido.TABLE_NAME, null, values);
+            db.insertOrThrow(Constants.PEDIDO_TABLE, null, values);
         }catch(Exception ex){
             throw new SQLException("Erro ao inserir registro - " + ex.getMessage());
         }finally {
@@ -49,7 +50,7 @@ public class PedidoRepositorio {
         Cursor cursor;
         String[] campos =  {"id", "nome", "mesa", "total", "resumo", "data"};
         SQLiteDatabase db = create.getReadableDatabase();
-        cursor = db.query(Pedido.TABLE_NAME, campos, null, null, null, null, null, null);
+        cursor = db.query(Constants.PEDIDO_TABLE, campos, null, null, null, null, null, null);
 
         int count = 0;
         cursor.moveToFirst();

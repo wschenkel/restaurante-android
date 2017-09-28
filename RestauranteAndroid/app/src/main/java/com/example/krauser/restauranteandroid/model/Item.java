@@ -1,8 +1,8 @@
 package com.example.krauser.restauranteandroid.model;
 
-public class Item {
+import com.example.krauser.restauranteandroid.Constants;
 
-    public static final String TABLE_NAME = "item";
+public class Item {
 
     public int id;
     public String urlImagem;
@@ -10,7 +10,7 @@ public class Item {
     public String descricao;
 
     public static String getSqlCreateTable(){
-        String sql = "CREATE TABLE " + TABLE_NAME + " (" +
+        String sql = "CREATE TABLE " + Constants.ITEM_TABLE + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "titulo TEXT, " +
                 "descricao TEXT, " +
