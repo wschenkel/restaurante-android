@@ -6,19 +6,10 @@ public class ItemPedido {
     public String titulo;
     public String descricao;
 
-    public ItemPedido(){ }
-
-    public ItemPedido(int id, String titulo, String descricao, String urlImagem){
-        this.id = id;
-        this.titulo = titulo;
-        this.urlImagem = urlImagem;
-        this.descricao = descricao;
-    }
-
     public static String getSqlCreateTable(){
-        String sql = "CREATE TABLE item (" +
+        String sql = "CREATE TABLE itemPedido (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nome TEXT, " +
+                "titulo TEXT, " +
                 "descricao TEXT, " +
                 "urlImagem TEXT)";
         return sql;

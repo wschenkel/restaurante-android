@@ -46,8 +46,8 @@ public class NovoPedido extends AppCompatActivity {
         Button btnItensPedido = (Button) findViewById(R.id.btnItensPedido);
         btnItensPedido.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent it = new Intent(NovoPedido.this, ItensPedido.class);
-                startActivity(it);
+            Intent it = new Intent(NovoPedido.this, ItensPedido.class);
+            startActivity(it);
             }
         });
     }

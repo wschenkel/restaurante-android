@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Pedidos");
+
         List<Pedido> pedidos = new ArrayList<>();
         try{
             PedidoRepositorio repositorio = new PedidoRepositorio(this);
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception ex){
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
-
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Button novoPedido = (Button) findViewById(R.id.buttonNovoPedido);
         novoPedido.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                goPedido(v);
             }
         });
     }
