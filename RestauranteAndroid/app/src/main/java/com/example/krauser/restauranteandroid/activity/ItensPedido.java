@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.adapter.itemPedidoListAdapter;
-import com.example.krauser.restauranteandroid.infra.repositorio.ItemPedidoRepositorio;
+import com.example.krauser.restauranteandroid.infra.repositorio.ItemRepositorio;
+import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.ItemPedido;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class ItensPedido extends AppCompatActivity {
         setTitle("Adicionar itens ao pedido");
 
 
-        List<ItemPedido> itens = new ArrayList<ItemPedido>();
+        List<Item> itens = new ArrayList<>();
         try{
-            ItemPedidoRepositorio repositorio = new ItemPedidoRepositorio(this);
+            ItemRepositorio repositorio = new ItemRepositorio(this);
             itens = repositorio.obterTodos();
         }catch(Exception ex){
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();

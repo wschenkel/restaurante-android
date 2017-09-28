@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.krauser.restauranteandroid.model.ItemPedido;
+import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
 public class CreateDatabase extends SQLiteOpenHelper{
@@ -22,7 +22,7 @@ public class CreateDatabase extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Pedido.getSqlCreateTable());
-        db.execSQL(ItemPedido.getSqlCreateTable());
+        db.execSQL(Item.getSqlCreateTable());
 
         inserirDadosPreDefinidosPedido(db);
         inserirDadosPreDefinidosItensPedido(db);
@@ -37,7 +37,7 @@ public class CreateDatabase extends SQLiteOpenHelper{
 
     private void inserirDadosPreDefinidosPedido(SQLiteDatabase db){
 
-        String sql = "INSERT INTO pedido (nome, mesa, total, resumo, data) VALUES (%s, %s, %s, %s, %s)";
+        String sql = "INSERT INTO " + Item.TABLE_NAME + " (nome, mesa, total, resumo, data) VALUES (%s, %s, %s, %s, %s)";
         db.execSQL(String.format(sql, "'Fulaninha'", 7, 567.98, "'Champagne, CINNAMON OBLIVION, BLOOMIN’ ONION ...'", "'09/07/17 - 13:30'"));
 
         db.execSQL(String.format(sql, "'Ciclaninho'", 18, 178.31, "'Absolut, Pave de limão, X salada ...'", "'30/08/17 - 09:45'"));
@@ -49,7 +49,7 @@ public class CreateDatabase extends SQLiteOpenHelper{
 
     private void inserirDadosPreDefinidosItensPedido(SQLiteDatabase db) {
 
-        String sql = "INSERT INTO itemPedido (titulo, descricao, urlImagem) VALUES (%s, %s, %s)";
+        String sql = "INSERT INTO " + Item.TABLE_NAME + " (titulo, descricao, urlImagem) VALUES (%s, %s, %s)";
 
         db.execSQL(String.format(sql, "'Massa Carbonara'", "Massa feita com muito queijo e amor", "http://www.seriouseats.com/recipes/assets_c/2017/02/20170210-vegan-carbonara-spaghetti-vicky-wasik-14-thumb-1500xauto-436613.jpg"));
         db.execSQL(String.format(sql, "'Costela do Cheff'", "Costela com o molho saboroso do MasterChef", "https://cafedelites.com/wp-content/uploads/2016/08/Slow-Cooker-BBQ-Spare-Ribs-68.jpg"));

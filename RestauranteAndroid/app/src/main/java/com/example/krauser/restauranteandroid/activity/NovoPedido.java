@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.krauser.restauranteandroid.R;
+import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.ItemPedido;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
@@ -33,9 +34,9 @@ public class NovoPedido extends AppCompatActivity {
         pedido.total = 114.50;
         pedido.mesa = 18;
 
-        ItemPedido itemPedido = new ItemPedido();
-        itemPedido.titulo = "Entrada: Alface";
-        itemPedido.urlImagem = "https://institucional-statics-files.s3.amazonaws.com/Prime-Rib-Pasta-cmyk-massas.jpg";
+        Item item = new Item();
+        item.titulo = "Entrada: Alface";
+        item.urlImagem = "https://institucional-statics-files.s3.amazonaws.com/Prime-Rib-Pasta-cmyk-massas.jpg";
 
 
         pedidos.add(pedido);

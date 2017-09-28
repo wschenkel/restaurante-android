@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +16,7 @@ import java.util.List;
 
 public class PedidoRepositorio {
     private CreateDatabase create;
+
     public PedidoRepositorio(Context c){
         create = new CreateDatabase(c);
     }
@@ -35,7 +35,7 @@ public class PedidoRepositorio {
         values.put("data", pedido.data);
 
         try{
-            db.insertOrThrow("pedido", null, values);
+            db.insertOrThrow(Pedido.TABLE_NAME, null, values);
         }catch(Exception ex){
             throw new SQLException("Erro ao inserir registro - " + ex.getMessage());
         }finally {
@@ -49,7 +49,7 @@ public class PedidoRepositorio {
         Cursor cursor;
         String[] campos =  {"id", "nome", "mesa", "total", "resumo", "data"};
         SQLiteDatabase db = create.getReadableDatabase();
-        cursor = db.query("pedido", campos, null, null, null, null, null, null);
+        cursor = db.query(Pedido.TABLE_NAME, campos, null, null, null, null, null, null);
 
         int count = 0;
         cursor.moveToFirst();

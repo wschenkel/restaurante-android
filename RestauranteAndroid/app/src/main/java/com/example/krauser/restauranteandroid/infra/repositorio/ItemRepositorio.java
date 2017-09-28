@@ -7,21 +7,19 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
-import com.example.krauser.restauranteandroid.model.ItemPedido;
+import com.example.krauser.restauranteandroid.model.Item;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class ItemPedidoRepositorio {
+public class ItemRepositorio {
     private CreateDatabase create;
-    public ItemPedidoRepositorio(Context c){
+    public ItemRepositorio(Context c){
         create = new CreateDatabase(c);
     }
-    private String tbName = "itemPedido";
+    private String tbName = Item.TABLE_NAME;
 
-    public void inserir(ItemPedido item) {
+    public void inserir(Item item) {
         ContentValues values = new ContentValues();
         SQLiteDatabase db = create.getWritableDatabase();
 
@@ -38,9 +36,9 @@ public class ItemPedidoRepositorio {
         }
     }
 
-    public List<ItemPedido> obterTodos(){
+    public List<Item> obterTodos(){
 
-        List<ItemPedido> itens = new ArrayList<>();
+        List<Item> itens = new ArrayList<>();
 
         Cursor cursor;
         String[] campos =  {"id", "titulo", "descricao", "urlImagem"};
@@ -50,7 +48,7 @@ public class ItemPedidoRepositorio {
         int count = 0;
         cursor.moveToFirst();
         while(count < cursor.getCount()){
-            ItemPedido i = new ItemPedido();
+            Item i = new Item();
             int index = cursor.getColumnIndex("id");
             i.id = cursor.getInt(cursor.getColumnIndex("id"));
             i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));

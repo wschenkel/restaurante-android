@@ -11,17 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.krauser.restauranteandroid.R;
+import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.ItemPedido;
 
 import java.util.List;
 
 public class itemPedidoListAdapter extends RecyclerView.Adapter<itemPedidoListAdapter.ViewHolder>{
 
-    private List<ItemPedido> listItemPedido;
+    private List<Item> listItem;
     private Activity activity;
 
-    public itemPedidoListAdapter(List<ItemPedido> list, Activity activity){
-        this.listItemPedido = list;
+    public itemPedidoListAdapter(List<Item> list, Activity activity){
+        this.listItem = list;
         this.activity = activity;
     }
 
@@ -35,7 +36,7 @@ public class itemPedidoListAdapter extends RecyclerView.Adapter<itemPedidoListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ItemPedido item = listItemPedido.get(position);
+        Item item = listItem.get(position);
         holder.tituloItemList.setText(item.titulo);
         holder.imgItemList.setImageURI(Uri.parse(item.urlImagem.toString()));
         //Picasso.with(activity).load(item.urlImagem).into(holder.imagem);
@@ -43,7 +44,7 @@ public class itemPedidoListAdapter extends RecyclerView.Adapter<itemPedidoListAd
 
     @Override
     public int getItemCount() {
-        return listItemPedido.size();
+        return listItem.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
