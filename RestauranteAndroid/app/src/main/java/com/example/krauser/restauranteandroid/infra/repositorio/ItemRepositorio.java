@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.krauser.restauranteandroid.Constants;
+import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Item;
 

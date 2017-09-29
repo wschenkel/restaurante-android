@@ -1,6 +1,6 @@
 package com.example.krauser.restauranteandroid.model;
 
-import com.example.krauser.restauranteandroid.Constants;
+import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.R;
 
 import java.util.ArrayList;
