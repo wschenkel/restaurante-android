@@ -3,24 +3,42 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:layout_margin="8dp"
-    android:id="@+id/cardViewItemList">
+    android:layout_margin="10dp"
+    android:id="@+id/cardViewItem">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imgItemList"/>
-        <TextView
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/massa_carbonara"
+            android:id="@+id/imgItem"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="STEAKHOUSE PASTA"
-            android:textStyle="bold"
             android:gravity="center"
-            android:id="@+id/tituloItemList"/>
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STEAKHOUSE PASTA"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:id="@+id/tituloItem"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R$ 54.89"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:id="@+id/valorItem"/>
             />
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

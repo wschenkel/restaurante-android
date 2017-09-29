@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
-import com.example.krauser.restauranteandroid.adapter.itemPedidoListAdapter;
+import com.example.krauser.restauranteandroid.adapter.ItemListAdapter;
 import com.example.krauser.restauranteandroid.infra.repositorio.ItemRepositorio;
 import com.example.krauser.restauranteandroid.model.Item;
 
@@ -34,7 +34,7 @@ public class ItensPedido extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new itemPedidoListAdapter(itens, this));
+        recyclerView.setAdapter(new ItemListAdapter(itens, this));
 
 
     }

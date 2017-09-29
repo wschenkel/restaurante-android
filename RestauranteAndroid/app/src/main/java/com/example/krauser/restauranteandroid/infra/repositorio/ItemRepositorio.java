@@ -20,41 +20,25 @@ public class ItemRepositorio {
     }
     private String tbName = Constants.ITEM_TABLE;
 
-    public void inserir(Item item) {
-        ContentValues values = new ContentValues();
-        SQLiteDatabase db = create.getWritableDatabase();
-
-        values.put("titulo", item.titulo);
-        values.put("descricao", item.descricao);
-        values.put("urlImagem", item.urlImagem);
-
-        try{
-            db.insertOrThrow(tbName, null, values);
-        }catch(Exception ex){
-            throw new SQLException("Erro ao inserir registro - " + ex.getMessage());
-        }finally {
-            db.close();
-        }
-    }
-
     public List<Item> obterTodos(){
 
         List<Item> itens = new ArrayList<>();
 
         Cursor cursor;
-        String[] campos =  {"id", "titulo", "descricao", "urlImagem"};
+        String[] campos =  {"id", "titulo", "descricao", "resource", "categoria", "valor"};
         SQLiteDatabase db = create.getReadableDatabase();
-        cursor = db.query("item", campos, null, null, null, null, null);
+        cursor = db.query(Constants.ITEM_TABLE, campos, null, null, null, null, null);
 
         int count = 0;
         cursor.moveToFirst();
         while(count < cursor.getCount()){
             Item i = new Item();
-            int index = cursor.getColumnIndex("id");
             i.id = cursor.getInt(cursor.getColumnIndex("id"));
             i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));
             i.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
-            i.urlImagem = cursor.getString(cursor.getColumnIndex("urlImagem"));
+            i.resource = cursor.getInt(cursor.getColumnIndex("resource"));
+            i.categoria = cursor.getString(cursor.getColumnIndex("categoria"));
+            i.valor = cursor.getDouble(cursor.getColumnIndex("valor"));
             itens.add(i);
             cursor.moveToNext();
             count++;

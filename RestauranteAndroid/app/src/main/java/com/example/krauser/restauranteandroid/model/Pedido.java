@@ -2,6 +2,7 @@ package com.example.krauser.restauranteandroid.model;
 
 import com.example.krauser.restauranteandroid.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
@@ -25,5 +26,28 @@ public class Pedido {
                 "data TEXT, " +
                 "observacao TEXT)";
         return sql;
+    }
+
+    public static List<Pedido> getPedidosIniciais(){
+        List<Pedido> pedidos = new ArrayList<>();
+        Pedido pedido = new Pedido();
+        pedido.nome = "Fulaninha";
+        pedido.mesa = 7;
+        pedido.total = 567.98;
+        pedido.data = "09/07/17 - 13:30";
+        pedido.resumo = "Champagne, CINNAMON OBLIVION, BLOOMIN’ ONION ...";
+
+        pedidos.add(pedido);
+
+        pedido = new Pedido();
+        pedido.nome = "Ciclaninho";
+        pedido.mesa = 18;
+        pedido.total = 178.31;
+        pedido.data = "30/08/17 - 09:45";
+        pedido.resumo = "Absolut, Pave de limão, X salada ...";
+
+        pedidos.add(pedido);
+
+        return pedidos;
     }
 }

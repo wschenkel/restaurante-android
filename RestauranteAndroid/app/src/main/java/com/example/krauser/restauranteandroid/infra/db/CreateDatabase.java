@@ -24,8 +24,9 @@ public class CreateDatabase extends SQLiteOpenHelper{
         db.execSQL(Item.getSqlCreateTable());
         db.execSQL(getCreateTableItemPedido());
 
-        inserirDadosPreDefinidosPedido(db);
-        inserirDadosPreDefinidosItensPedido(db);
+        inserirItensPreDefinidos(db);
+        inserirPedidosPreDefinidos(db);
+        bindPedidoItem(db);
     }
 
     @Override
@@ -45,23 +46,23 @@ public class CreateDatabase extends SQLiteOpenHelper{
         return sql;
     }
 
-    private void inserirDadosPreDefinidosPedido(SQLiteDatabase db){
-
-        String sql = "INSERT INTO " + Constants.PEDIDO_TABLE + " (nome, mesa, total, resumo, data) VALUES (%s, %s, %s, %s, %s)";
-        db.execSQL(String.format(sql, "'Fulaninha'", 7, 567.98, "'Champagne, CINNAMON OBLIVION, BLOOMIN’ ONION ...'", "'09/07/17 - 13:30'"));
-
-        db.execSQL(String.format(sql, "'Ciclaninho'", 18, 178.31, "'Absolut, Pave de limão, X salada ...'", "'30/08/17 - 09:45'"));
-
-        db.execSQL(String.format(sql, "'Josué'", 3, 310.45, "'Vinho, Massa carbonara, Costelinha com molho barbecue ...'", "'11/04/17 - 12:31'"));
-
-        db.execSQL(String.format(sql, "'João'", 13, 34.13, "'Caipirinha, GOLD COAST COCONUT SHRIMP, SPICY SHRIMP DIP  ...'", "'15/09/17 - 08:08'"));
+    private void inserirPedidosPreDefinidos(SQLiteDatabase db){
+        String sql = "INSERT INTO " + Constants.PEDIDO_TABLE + " (nome, mesa, total, resumo, data) VALUES ('%s', %s, %s, '%s', '%s')";
+        for(Pedido p : Pedido.getPedidosIniciais())
+            db.execSQL(String.format(sql, p.nome, p.mesa, p.total, p.resumo, p.data));
     }
 
-    private void inserirDadosPreDefinidosItensPedido(SQLiteDatabase db) {
+    private void inserirItensPreDefinidos(SQLiteDatabase db) {
+        String sql = "INSERT INTO " + Constants.ITEM_TABLE + " (titulo, descricao, resource, categoria, valor) VALUES ('%s', '%s', %s, '%s', %s)";
+        for(Item item : Item.getItensIniciais())
+            db.execSQL(String.format(sql, item.titulo, item.descricao, item.resource, item.categoria, item.valor));
+    }
 
-        String sql = "INSERT INTO " + Constants.ITEM_TABLE + " (titulo, descricao, urlImagem) VALUES (%s, %s, %s)";
-
-        db.execSQL(String.format(sql, "'Massa Carbonara'", "'Massa feita com muito queijo e amor'", "'http://www.seriouseats.com/recipes/assets_c/2017/02/20170210-vegan-carbonara-spaghetti-vicky-wasik-14-thumb-1500xauto-436613.jpg'"));
-        db.execSQL(String.format(sql, "'Costela do Cheff'", "'Costela com o molho saboroso do MasterChef'", "'https://cafedelites.com/wp-content/uploads/2016/08/Slow-Cooker-BBQ-Spare-Ribs-68.jpg'"));
+    private void bindPedidoItem(SQLiteDatabase db){
+        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (1,1)");
+        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (1,1)");
+        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (1,2)");
+        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (2,1)");
+        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (2,2)");
     }
 }

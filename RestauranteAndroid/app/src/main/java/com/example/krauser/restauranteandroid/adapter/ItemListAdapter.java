@@ -1,6 +1,7 @@
 package com.example.krauser.restauranteandroid.adapter;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +16,12 @@ import com.example.krauser.restauranteandroid.model.Item;
 
 import java.util.List;
 
-public class itemPedidoListAdapter extends RecyclerView.Adapter<itemPedidoListAdapter.ViewHolder>{
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder>{
 
     private List<Item> listItem;
     private Activity activity;
 
-    public itemPedidoListAdapter(List<Item> list, Activity activity){
+    public ItemListAdapter(List<Item> list, Activity activity){
         this.listItem = list;
         this.activity = activity;
     }
@@ -36,9 +37,10 @@ public class itemPedidoListAdapter extends RecyclerView.Adapter<itemPedidoListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
-        holder.tituloItemList.setText(item.titulo);
-        holder.imgItemList.setImageURI(Uri.parse(item.urlImagem.toString()));
-        //Picasso.with(activity).load(item.urlImagem).into(holder.imagem);
+        holder.tituloItem.setText(item.titulo);
+        holder.valorItem.setText(String.format("R$ %s", item.valor));
+        if(item.resource > 0)
+            holder.imgItem.setImageResource(item.resource);
     }
 
     @Override
@@ -47,15 +49,18 @@ public class itemPedidoListAdapter extends RecyclerView.Adapter<itemPedidoListAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tituloItemList;
-        public ImageView imgItemList;
-        public CardView cardViewItemList;
+        public TextView tituloItem;
+        public TextView valorItem;
+        public ImageView imgItem;
+        public CardView cardViewItem;
+
         public ViewHolder(View itemView){
             super(itemView);
-            tituloItemList = (TextView)itemView.findViewById(R.id.tituloItemList);
-            imgItemList = (ImageView)itemView.findViewById(R.id.imgItemList);
-            cardViewItemList = (CardView)itemView.findViewById(R.id.cardViewItemList);
-            //cardView.getBackground().se;
+            tituloItem = itemView.findViewById(R.id.tituloItem);
+            valorItem = itemView.findViewById(R.id.valorItem);
+            imgItem = itemView.findViewById(R.id.imgItem);
+            cardViewItem = itemView.findViewById(R.id.cardViewItem);
+            cardViewItem.getBackground().setAlpha(128);
         }
     }
 }

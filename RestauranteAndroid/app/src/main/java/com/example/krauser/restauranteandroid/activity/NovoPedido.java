@@ -31,11 +31,6 @@ public class NovoPedido extends BaseActivity {
         pedido.total = 114.50;
         pedido.mesa = 18;
 
-        Item item = new Item();
-        item.titulo = "Entrada: Alface";
-        item.urlImagem = "https://institucional-statics-files.s3.amazonaws.com/Prime-Rib-Pasta-cmyk-massas.jpg";
-
-
         pedidos.add(pedido);
         pedidos.add(pedido);
         pedidos.add(pedido);
