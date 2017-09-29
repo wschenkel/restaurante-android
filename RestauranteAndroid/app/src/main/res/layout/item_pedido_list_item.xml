@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="10dp"
+    android:clickable="true"
     android:id="@+id/cardViewItem">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

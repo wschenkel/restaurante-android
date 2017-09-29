@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
@@ -38,8 +40,6 @@ public class ItensPedido extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(new ItemListAdapter(itens, this));
-
-
     }
 
     @Override
