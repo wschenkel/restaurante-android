@@ -1,11 +1,15 @@
 package com.example.krauser.restauranteandroid.model;
 
-import com.example.krauser.restauranteandroid.Constants;
+import android.support.annotation.NonNull;
+
+import com.example.krauser.restauranteandroid.util.Constants;
+import com.example.krauser.restauranteandroid.util.Helper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Pedido {
+public class Pedido implements Comparable<Pedido>{
 
     public int id;
     public String nome;
@@ -49,5 +53,17 @@ public class Pedido {
         pedidos.add(pedido);
 
         return pedidos;
+    }
+
+    @Override
+    public int compareTo(@NonNull Pedido pedido) {
+        Date selfDate = Helper.stringToDate(this.data);
+        Date youDate = Helper.stringToDate(pedido.data);
+        if(selfDate.compareTo(youDate) > 0)
+            return - 1;
+        else if(selfDate.compareTo(youDate) < 0)
+            return + 1;
+        else
+            return 0;
     }
 }

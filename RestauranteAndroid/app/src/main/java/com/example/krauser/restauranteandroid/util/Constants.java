@@ -1,4 +1,4 @@
-package com.example.krauser.restauranteandroid;
+package com.example.krauser.restauranteandroid.util;
 
 public class Constants {
     public static final int DB_VERSION = 10;

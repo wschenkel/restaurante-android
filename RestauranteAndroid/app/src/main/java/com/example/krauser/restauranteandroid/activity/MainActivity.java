@@ -14,6 +14,7 @@ import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositori
 import com.example.krauser.restauranteandroid.model.Pedido;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity {
         try{
             PedidoRepositorio repositorio = new PedidoRepositorio(this);
             pedidos = repositorio.obterTodos();
+            Collections.sort(pedidos);
         }catch(Exception ex){
             String msg = ex.getMessage();
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();

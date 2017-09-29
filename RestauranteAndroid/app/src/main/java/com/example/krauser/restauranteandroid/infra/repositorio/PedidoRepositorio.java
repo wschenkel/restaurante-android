@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.krauser.restauranteandroid.Constants;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Pedido;
+import com.example.krauser.restauranteandroid.util.Constants;
+import com.example.krauser.restauranteandroid.util.Helper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +26,7 @@ public class PedidoRepositorio {
         ContentValues values = new ContentValues();
         SQLiteDatabase db = create.getWritableDatabase();
 
-        pedido.data = new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(new Date());
+        pedido.data = Helper.dateToString(new Date());
 
         values.put("nome", pedido.nome);
         values.put("mesa", pedido.mesa);
