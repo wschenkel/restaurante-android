@@ -47,13 +47,11 @@ public class NovoPedido extends BaseActivity {
 
         pedido = (Pedido)getIntent().getSerializableExtra("pedido");
         if(pedido != null){
-            txtMesa.setText(String.valueOf(pedido.mesa));
-            txtNome.setText(pedido.nome);
-            txtTotal.setText(String.format("R$ %s", pedido.getTotal()));
             disabilitarCampos();
-        }else{
-            pedido = new Pedido();
+            preencherDadosPedido();
         }
+        else
+            pedido = new Pedido();
 
         btnItens.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,13 +60,6 @@ public class NovoPedido extends BaseActivity {
             startActivityForResult(intent, 1);
             }
         });
-
-        RecyclerView itemRecycler = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
-
-        itemRecycler.setHasFixedSize(true);
-        itemRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-        itemRecycler.setAdapter(new ItemListAdapter(pedido.itens, this));
     }
 
     private void disabilitarCampos(){
@@ -77,10 +68,26 @@ public class NovoPedido extends BaseActivity {
         btnItens.setVisibility(View.INVISIBLE);
     }
 
+    private void preencherDadosPedido(){
+        if(this.pedido != null){
+            if(pedido.mesa > 0)
+                txtMesa.setText(String.valueOf(pedido.mesa));
+            txtNome.setText(pedido.nome);
+            txtTotal.setText(String.format("R$ %s", pedido.getTotal()));
+            RecyclerView itemRecycler = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
+
+            itemRecycler.setHasFixedSize(true);
+            itemRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+            itemRecycler.setAdapter(new ItemListAdapter(pedido.itens, this));
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data.hasExtra("pedido")){
             this.pedido = (Pedido)data.getSerializableExtra("pedido");
+            preencherDadosPedido();
         }
     }
 }

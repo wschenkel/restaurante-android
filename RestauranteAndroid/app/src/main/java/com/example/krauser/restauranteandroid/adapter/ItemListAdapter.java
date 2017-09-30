@@ -25,6 +25,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     private Activity activity;
     private boolean selectable;
     private List<Item> selectedItens;
+    private int itensCarregados;
 
 
     public ItemListAdapter(List<Item> list, Activity activity){
@@ -58,14 +59,18 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             holder.imgItem.setImageResource(item.resource);
         }
 
-        if(selectable){
-            if(selectedItens.contains(item)){
-                selectedItens.remove(item);
-                holder.itemView.setBackgroundColor(Color.GRAY);
-            }else{
-                selectedItens.add(item);
-                holder.itemView.setBackgroundColor(Color.WHITE);
+        if(isLoaded()){
+            if(selectable){
+                if(selectedItens.contains(item)){
+                    selectedItens.remove(item);
+                    holder.itemView.setBackgroundColor(Color.GRAY);
+                }else{
+                    selectedItens.add(item);
+                    holder.itemView.setBackgroundColor(Color.WHITE);
+                }
             }
+        }else{
+            itensCarregados++;
         }
     }
 
@@ -93,9 +98,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            if(selectable){
+            if(selectable)
                 notifyItemChanged(getAdapterPosition());
-            }
         }
+    }
+
+    private boolean isLoaded(){
+        return itensCarregados == listItem.size();
     }
 }

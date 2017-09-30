@@ -46,8 +46,9 @@ public class ItensPedido extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final ItemListAdapter adapter = new ItemListAdapter(itens, this);
-        adapter.setSelectable(true);
+
         recyclerView.setAdapter(adapter);
+        adapter.setSelectable(true);
 
         Button btnSelecionar = (Button) findViewById(R.id.btnEscolher);
 
