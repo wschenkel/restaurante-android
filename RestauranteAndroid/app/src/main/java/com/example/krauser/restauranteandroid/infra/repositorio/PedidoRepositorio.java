@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
+import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.Pedido;
 import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.util.Helper;
@@ -50,20 +51,42 @@ public class PedidoRepositorio {
         Cursor cursor;
         String[] campos =  {"id", "nome", "mesa", "total", "resumo", "data"};
         SQLiteDatabase db = create.getReadableDatabase();
-        cursor = db.query(Constants.PEDIDO_TABLE, campos, null, null, null, null, null, null);
+
+        cursor = db.rawQuery("SELECT ip.idItem, ip.idPedido, p.nome, p.mesa, p.total, p.resumo, p.data, " +
+                        "i.titulo, i.descricao, i.resource, i.categoria, i.valor " +
+                        "FROM " + Constants.PEDIDO_TABLE + " AS p " +
+                        "JOIN " + Constants.ITEM_PEDIDO_TABLE + " AS ip ON ip.idPedido = p.id " +
+                        "JOIN " + Constants.ITEM_TABLE + " AS i ON i.id = ip.idItem " +
+                        "ORDER BY p.id"
+                , null);
 
         int count = 0;
+        int id = 0;
+        Pedido p = new Pedido();
         cursor.moveToFirst();
         while(count < cursor.getCount()){
-            Pedido p = new Pedido();
-            int index = cursor.getColumnIndex("id");
-            p.id = cursor.getInt(cursor.getColumnIndex("id"));
-            p.nome = cursor.getString(cursor.getColumnIndex("nome"));
-            p.mesa = cursor.getInt(cursor.getColumnIndex("mesa"));
-            p.total = cursor.getDouble(cursor.getColumnIndex("total"));
-            p.resumo = cursor.getString(cursor.getColumnIndex("resumo"));
-            p.data = cursor.getString(cursor.getColumnIndex("data"));
-            pedidos.add(p);
+            int idAtual = cursor.getInt(cursor.getColumnIndex("idPedido"));
+            if(idAtual != id){
+                p = new Pedido();
+                p.id = cursor.getInt(cursor.getColumnIndex("idPedido"));
+                p.nome = cursor.getString(cursor.getColumnIndex("nome"));
+                p.mesa = cursor.getInt(cursor.getColumnIndex("mesa"));
+                p.total = cursor.getDouble(cursor.getColumnIndex("total"));
+                p.resumo = cursor.getString(cursor.getColumnIndex("resumo"));
+                p.data = cursor.getString(cursor.getColumnIndex("data"));
+                pedidos.add(p);
+                id = idAtual;
+            }
+
+            Item i = new Item();
+            i.id = cursor.getInt(cursor.getColumnIndex("idItem"));
+            i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));
+            i.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
+            i.resource = cursor.getInt(cursor.getColumnIndex("resource"));
+            i.categoria = cursor.getString(cursor.getColumnIndex("categoria"));
+            i.valor = cursor.getDouble(cursor.getColumnIndex("valor"));
+            p.itens.add(i);
+
             cursor.moveToNext();
             count++;
         }

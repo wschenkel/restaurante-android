@@ -1,6 +1,8 @@
 package com.example.krauser.restauranteandroid.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
+import com.example.krauser.restauranteandroid.activity.NovoPedido;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
 import java.util.List;
@@ -17,7 +21,7 @@ import java.util.List;
 public class PedidoListAdapter extends RecyclerView.Adapter<PedidoListAdapter.ViewHolder>{
 
     private List<Pedido> listPedido;
-    private Activity activity;
+    private final Activity activity;
 
     public PedidoListAdapter(List<Pedido> list, Activity activity){
         this.listPedido = list;
@@ -34,11 +38,19 @@ public class PedidoListAdapter extends RecyclerView.Adapter<PedidoListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Pedido pedido = listPedido.get(position);
+        final Pedido pedido = listPedido.get(position);
         holder.txtMesa.setText(String.format("Mesa: %s", pedido.mesa));
         holder.txtData.setText(pedido.data);
         holder.txtResumo.setText(pedido.resumo);
-        //Picasso.with(activity).load(item.urlImagem).into(holder.imagem);
+        final Context context = activity;
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pedidoActivity = new Intent(activity, NovoPedido.class);
+                pedidoActivity.putExtra("pedido", pedido);
+                activity.startActivity(pedidoActivity);
+            }
+        });
     }
 
     @Override
@@ -53,10 +65,10 @@ public class PedidoListAdapter extends RecyclerView.Adapter<PedidoListAdapter.Vi
         public CardView cardView;
         public ViewHolder(View itemView){
             super(itemView);
-            txtMesa = (TextView)itemView.findViewById(R.id.txtMesaPedido);
-            txtData = (TextView)itemView.findViewById(R.id.txtDataPedido);
-            txtResumo = (TextView) itemView.findViewById(R.id.txtResumoPedido);
-            cardView = (CardView)itemView.findViewById(R.id.cardViewPedidoList);
+            txtMesa = itemView.findViewById(R.id.txtMesaPedido);
+            txtData = itemView.findViewById(R.id.txtDataPedido);
+            txtResumo = itemView.findViewById(R.id.txtResumoPedido);
+            cardView = itemView.findViewById(R.id.cardViewPedidoList);
             cardView.getBackground().setAlpha(128);
         }
     }

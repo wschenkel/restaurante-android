@@ -21,10 +21,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeComponents();
+    }
 
+    private void initializeComponents(){
         setTitle("Pedidos");
 
         List<Pedido> pedidos = new ArrayList<>();
@@ -34,14 +36,12 @@ public class MainActivity extends BaseActivity {
             Collections.sort(pedidos);
         }catch(Exception ex){
             String msg = ex.getMessage();
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
-
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.pedidoRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         recyclerView.setAdapter(new PedidoListAdapter(pedidos, this));
 
         Button novoPedido = (Button) findViewById(R.id.buttonNovoPedido);

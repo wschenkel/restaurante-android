@@ -5,11 +5,12 @@ import android.support.annotation.NonNull;
 import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.util.Helper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Pedido implements Comparable<Pedido>{
+public class Pedido implements Comparable<Pedido>, Serializable{
 
     public int id;
     public String nome;
@@ -19,6 +20,10 @@ public class Pedido implements Comparable<Pedido>{
     public String observacao;
     public String data;
     public List<Item> itens;
+
+    public Pedido(){
+        itens = new ArrayList<>();
+    }
 
     public static String getSqlCreateTable(){
         String sql = "CREATE TABLE " + Constants.PEDIDO_TABLE + " (" +

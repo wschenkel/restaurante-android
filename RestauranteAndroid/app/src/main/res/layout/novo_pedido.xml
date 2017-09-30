@@ -1,132 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:gravity="bottom"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/linLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.constraint.ConstraintLayout
+        android:layout_marginTop="50dp">
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="70dp">
 
             <EditText
                 android:id="@+id/txtNome"
-                android:layout_width="385dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nome"
+                android:textSize="30dp"
                 android:inputType="textPersonName"
-                android:textColorLink="@color/colorPrimary"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="11dp" />
-        </android.support.constraint.ConstraintLayout>
+                android:textColorLink="@color/colorPrimary"/>
+        </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="70dp">
 
             <EditText
                 android:id="@+id/txtNumeroMesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="30dp"
                 android:hint="Número da mesa"
                 android:inputType="number"
                 android:textColorLink="@color/colorPrimary" />
         </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:background="#ffffff"
-        app:layout_constraintLeft_toLeftOf="@+id/linLayout"
-        app:layout_constraintRight_toRightOf="@+id/linLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linLayout"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:id="@+id/constraintLayout">
-
-        <ImageView
-            android:id="@+id/imgPedido"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:text="Total:"/>
+            <TextView
+                android:id="@+id/ttValorTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="R$ 0.00"/>
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/txtPedido"
             android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="11dp"
-            android:text="Coxinha"
-            app:layout_constraintLeft_toRightOf="@+id/imgPedido"
-            app:layout_constraintTop_toTopOf="@+id/imgPedido"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:layout_height="wrap_content"
+            android:text="Itens do pedido:"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/itemPedidoRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/ttValorTotal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="13dp"
-        android:text="Resumo do pedido"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linLayout"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
-
-    <Button
-        android:id="@+id/btnItensPedido"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Adicionar itens ao pedido"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Valor total: R$ 00.00"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        android:layout_marginStart="8dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="8dp" />
-
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <Button
+            android:id="@+id/btnItensPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="Adicionar itens ao pedido" />
+    </LinearLayout>
+</LinearLayout>

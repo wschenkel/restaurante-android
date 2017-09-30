@@ -3,10 +3,11 @@ package com.example.krauser.restauranteandroid.model;
 import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item {
+public class Item implements Serializable {
 
     public int id;
     public String titulo;
