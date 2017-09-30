@@ -37,6 +37,12 @@ public class PedidoRepositorio {
 
         try{
             db.insertOrThrow(Constants.PEDIDO_TABLE, null, values);
+            for(Item i : pedido.itens){
+                values = new ContentValues();
+                values.put("idItem", i.id);
+                values.put("idPedido", pedido.id);
+                db.insertOrThrow(Constants.ITEM_PEDIDO_TABLE, null, values);
+            }
         }catch(Exception ex){
             throw new SQLException("Erro ao inserir registro - " + ex.getMessage());
         }finally {
