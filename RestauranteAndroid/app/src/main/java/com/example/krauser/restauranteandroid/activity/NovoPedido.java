@@ -26,8 +26,8 @@ public class NovoPedido extends BaseActivity {
     EditText txtMesa;
     EditText txtNome;
     Button btnItens;
-    List<Item> itens;
     TextView txtTotal;
+    Pedido pedido;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,21 +45,21 @@ public class NovoPedido extends BaseActivity {
 
         btnItens= (Button) findViewById(R.id.btnItensPedido);
 
-        Pedido pedido = (Pedido)getIntent().getSerializableExtra("pedido");
+        pedido = (Pedido)getIntent().getSerializableExtra("pedido");
         if(pedido != null){
             txtMesa.setText(String.valueOf(pedido.mesa));
             txtNome.setText(pedido.nome);
             txtTotal.setText(String.format("R$ %s", pedido.getTotal()));
             disabilitarCampos();
-            itens = pedido.itens;
         }else{
-            itens = new ArrayList<>();
+            pedido = new Pedido();
         }
 
         btnItens.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent it = new Intent(NovoPedido.this, ItensPedido.class);
-                startActivity(it);
+            Intent intent = new Intent(NovoPedido.this, ItensPedido.class);
+            intent.putExtra("pedido", pedido);
+            startActivityForResult(intent, 1);
             }
         });
 
@@ -68,12 +68,19 @@ public class NovoPedido extends BaseActivity {
         itemRecycler.setHasFixedSize(true);
         itemRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        itemRecycler.setAdapter(new ItemListAdapter(itens, this));
+        itemRecycler.setAdapter(new ItemListAdapter(pedido.itens, this));
     }
 
     private void disabilitarCampos(){
         txtNome.setEnabled(false);
         txtMesa.setEnabled(false);
         btnItens.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data.hasExtra("pedido")){
+            this.pedido = (Pedido)data.getSerializableExtra("pedido");
+        }
     }
 }

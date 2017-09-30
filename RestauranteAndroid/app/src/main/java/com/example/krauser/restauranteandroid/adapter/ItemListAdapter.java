@@ -23,11 +23,18 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     private List<Item> listItem;
     private Activity activity;
-    int selected_position = 0;
+    private boolean selectable;
+    private List<Item> selectedItens;
+
 
     public ItemListAdapter(List<Item> list, Activity activity){
         this.listItem = list;
         this.activity = activity;
+        this.selectedItens = new ArrayList<>();
+    }
+
+    public void setSelectable(boolean selectable){
+        this.selectable = selectable;
     }
 
     @Override
@@ -38,37 +45,28 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    public List<Item> getSelectedItens(){
+        return selectedItens;
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
-        ArrayList<String> i = new ArrayList<String>();
-
-
         holder.tituloItem.setText(item.titulo);
         holder.valorItem.setText(String.format("R$ %s", item.valor));
         if(item.resource > 0) {
             holder.imgItem.setImageResource(item.resource);
         }
 
-        if (selected_position == position) {
-            if (holder.itemView.getBackground().equals(Color.GRAY)) {
-                holder.itemView.setBackgroundColor(Color.WHITE);
-                i.remove(holder.cardViewItem.findViewById(R.id.cardViewItem).toString());
-            } else {
+        if(selectable){
+            if(selectedItens.contains(item)){
+                selectedItens.remove(item);
                 holder.itemView.setBackgroundColor(Color.GRAY);
-                i.add(holder.cardViewItem.findViewById(R.id.cardViewItem).toString());
+            }else{
+                selectedItens.add(item);
+                holder.itemView.setBackgroundColor(Color.WHITE);
             }
         }
-
-        /*
-        holder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            Intent pedidoActivity = new Intent(activity, NovoPedido.class);
-            pedidoActivity.putExtra("pedido", pedido);
-            activity.startActivity(pedidoActivity);
-            }
-        });*/
     }
 
     @Override
@@ -95,10 +93,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
-            notifyItemChanged(selected_position);
-            selected_position = getAdapterPosition();
-            notifyItemChanged(selected_position);
+            if(selectable){
+                notifyItemChanged(getAdapterPosition());
+            }
         }
     }
 }
