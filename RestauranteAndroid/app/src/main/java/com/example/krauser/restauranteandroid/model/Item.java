@@ -35,7 +35,7 @@ public class Item implements Serializable {
         item.descricao = "Massa feita com muito queijo e amor";
         item.resource = R.drawable.massa_carbonara;
         item.categoria = "prato";
-        item.valor = 28.90;
+        item.valor = 28.93;
 
         itens.add(item);
 
@@ -45,6 +45,42 @@ public class Item implements Serializable {
         item.resource = R.drawable.costela_cheff;
         item.categoria = "prato";
         item.valor = 18.54;
+
+        itens.add(item);
+
+        item = new Item();
+        item.titulo = "Caipira Valilla";
+        item.descricao = "Uma caipirinha de absolut vanilla nos sabores morango/kiwi/maracujá";
+        item.resource = R.drawable.caipira;
+        item.categoria = "bebida";
+        item.valor = 37.84;
+
+        itens.add(item);
+
+        item = new Item();
+        item.titulo = "Drink de whisky Valilla";
+        item.descricao = "Um belo drink de jack daniels";
+        item.resource = R.drawable.whisky;
+        item.categoria = "sobremesa";
+        item.valor = 29.38;
+
+        itens.add(item);
+
+        item = new Item();
+        item.titulo = "Mousse";
+        item.descricao = "Uma sobremesa de morango para complementar o almoço";
+        item.resource = R.drawable.mousse;
+        item.categoria = "sobremesa";
+        item.valor = 8.46;
+
+        itens.add(item);
+
+        item = new Item();
+        item.titulo = "Pudim";
+        item.descricao = "Um doce essencial após uma boa refeição";
+        item.resource = R.drawable.pudim;
+        item.categoria = "sobremesa";
+        item.valor = 6.32;
 
         itens.add(item);
 

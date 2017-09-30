@@ -47,7 +47,7 @@ public class CreateDatabase extends SQLiteOpenHelper{
     }
 
     private void inserirPedidosPreDefinidos(SQLiteDatabase db){
-        String sql = "INSERT INTO " + Constants.PEDIDO_TABLE + " (nome, mesa, resumo, data) VALUES ('%s', %s, %s, '%s', '%s')";
+        String sql = "INSERT INTO " + Constants.PEDIDO_TABLE + " (nome, mesa, resumo, data) VALUES ('%s', %s, '%s', '%s')";
         for(Pedido p : Pedido.getPedidosIniciais())
             db.execSQL(String.format(sql, p.nome, p.mesa, p.resumo, p.data));
     }
