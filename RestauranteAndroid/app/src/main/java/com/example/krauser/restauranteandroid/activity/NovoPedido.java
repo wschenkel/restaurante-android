@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
@@ -26,6 +27,7 @@ public class NovoPedido extends BaseActivity {
     EditText txtNome;
     Button btnItens;
     List<Item> itens;
+    TextView txtTotal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class NovoPedido extends BaseActivity {
 
         txtMesa = (EditText)findViewById(R.id.txtNumeroMesa);
         txtNome = (EditText)findViewById(R.id.txtNome);
+        txtTotal = (TextView) findViewById(R.id.ttValorTotal);
 
         btnItens= (Button) findViewById(R.id.btnItensPedido);
 
@@ -46,6 +49,7 @@ public class NovoPedido extends BaseActivity {
         if(pedido != null){
             txtMesa.setText(String.valueOf(pedido.mesa));
             txtNome.setText(pedido.nome);
+            txtTotal.setText(String.format("R$ %s", pedido.getTotal()));
             disabilitarCampos();
             itens = pedido.itens;
         }else{

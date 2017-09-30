@@ -31,7 +31,6 @@ public class PedidoRepositorio {
 
         values.put("nome", pedido.nome);
         values.put("mesa", pedido.mesa);
-        values.put("total", pedido.total);
         values.put("resumo", pedido.resumo);
         values.put("observacao", pedido.observacao);
         values.put("data", pedido.data);
@@ -71,7 +70,6 @@ public class PedidoRepositorio {
                 p.id = cursor.getInt(cursor.getColumnIndex("idPedido"));
                 p.nome = cursor.getString(cursor.getColumnIndex("nome"));
                 p.mesa = cursor.getInt(cursor.getColumnIndex("mesa"));
-                p.total = cursor.getDouble(cursor.getColumnIndex("total"));
                 p.resumo = cursor.getString(cursor.getColumnIndex("resumo"));
                 p.data = cursor.getString(cursor.getColumnIndex("data"));
                 pedidos.add(p);
