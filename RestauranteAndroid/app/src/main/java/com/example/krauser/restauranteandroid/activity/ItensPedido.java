@@ -49,7 +49,4 @@ public class ItensPedido extends BaseActivity {
         menu.addSubMenu("Teste");
         return true;
     }
-
-
-
 }

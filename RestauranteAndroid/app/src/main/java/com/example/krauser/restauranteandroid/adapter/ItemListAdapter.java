@@ -2,6 +2,7 @@ package com.example.krauser.restauranteandroid.adapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.model.Item;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
@@ -35,6 +38,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
+        ArrayList<Item> i = new ArrayList<Item>();
+
 
         holder.tituloItem.setText(item.titulo);
         holder.valorItem.setText(String.format("R$ %s", item.valor));
@@ -42,7 +47,15 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             holder.imgItem.setImageResource(item.resource);
         }
 
-        holder.itemView.setBackgroundColor(selected_position == position ? Color.GRAY : Color.WHITE);
+        if (selected_position == position) {
+            if (holder.itemView.getBackground().equals(Color.GRAY)) {
+                holder.itemView.setBackgroundColor(Color.WHITE);
+            } else {
+                holder.itemView.setBackgroundColor(Color.GRAY);
+            }
+        }
+
+        //holder.itemView.setBackgroundColor(selected_position == position ? Color.GRAY : Color.WHITE);
     }
 
     @Override
