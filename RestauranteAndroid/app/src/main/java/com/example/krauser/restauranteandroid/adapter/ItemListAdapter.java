@@ -23,7 +23,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     private List<Item> selectedItens;
     private int itensCarregados;
 
-
     public ItemListAdapter(List<Item> list, Activity activity){
         this.listItem = list;
         this.activity = activity;
@@ -67,7 +66,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                     holder.itemView.getBackground().setAlpha(128);
                 }
             }
-        }else{
+        } else {
             itensCarregados++;
         }
     }
@@ -96,8 +95,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            if(selectable)
+            if(selectable) {
                 notifyItemChanged(getAdapterPosition());
+            }
         }
     }
 

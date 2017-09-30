@@ -19,6 +19,8 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +28,26 @@ public class MainActivity extends BaseActivity {
         initializeComponents();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarPedidos();
+    }
+
     private void initializeComponents(){
         setTitle("Pedidos");
+        Button novoPedido = (Button) findViewById(R.id.buttonNovoPedido);
+        novoPedido.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                goPedido(v);
+            }
+        });
+        recyclerView = (RecyclerView)findViewById(R.id.pedidoRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
+    private void carregarPedidos(){
         List<Pedido> pedidos = new ArrayList<>();
         try{
             PedidoRepositorio repositorio = new PedidoRepositorio(this);
@@ -38,20 +57,7 @@ public class MainActivity extends BaseActivity {
             String msg = ex.getMessage();
             Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
-
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.pedidoRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PedidoListAdapter(pedidos, this));
-
-
-        Button novoPedido = (Button) findViewById(R.id.buttonNovoPedido);
-        novoPedido.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                goPedido(v);
-            }
-        });
-
     }
 
     public void goPedido(View view){
