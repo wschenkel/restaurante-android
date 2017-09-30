@@ -15,10 +15,10 @@ public class Pedido implements Comparable<Pedido>, Serializable{
     public int id;
     public String nome;
     public int mesa;
-    public String resumo;
     public String observacao;
     public String data;
     public List<Item> itens;
+    private String resumo;
 
     public Pedido(){
         itens = new ArrayList<>();
@@ -29,6 +29,20 @@ public class Pedido implements Comparable<Pedido>, Serializable{
         for(Item i : itens)
             valor += i.valor;
         return valor;
+    }
+
+    public String getResumo() {
+        if(resumo != null && !resumo.isEmpty())
+            return resumo;
+
+        String descricao = "";
+        for(Item i : itens)
+            descricao += String.format(i.titulo + " | ");
+        return descricao.substring(0, descricao.length() - 3) + ".";
+    }
+
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
     }
 
     public static String getSqlCreateTable(){
@@ -49,7 +63,7 @@ public class Pedido implements Comparable<Pedido>, Serializable{
         pedido.nome = "Fulaninha";
         pedido.mesa = 7;
         pedido.data = "09/07/17 - 13:30";
-        pedido.resumo = "Champagne, CINNAMON OBLIVION, BLOOMIN’ ONION ...";
+        pedido.setResumo("Champagne, CINNAMON OBLIVION, BLOOMIN’ ONION ...");
 
         pedidos.add(pedido);
 
@@ -57,7 +71,7 @@ public class Pedido implements Comparable<Pedido>, Serializable{
         pedido.nome = "Ciclaninho";
         pedido.mesa = 18;
         pedido.data = "30/08/17 - 09:45";
-        pedido.resumo = "Absolut, Pave de limão, X salada ...";
+        pedido.setResumo("Absolut, Pave de limão, X salada ...");
 
         pedidos.add(pedido);
 

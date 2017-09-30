@@ -37,12 +37,17 @@ public class PedidoRepositorio {
 
         values.put("nome", pedido.nome);
         values.put("mesa", pedido.mesa);
-        values.put("resumo", pedido.resumo);
+        values.put("resumo", pedido.getResumo());
         values.put("observacao", pedido.observacao);
         values.put("data", pedido.data);
 
         try{
             db.insertOrThrow(Constants.PEDIDO_TABLE, null, values);
+
+            Cursor cursor;
+            cursor = db.rawQuery("SELECT MAX(id) AS id FROM " + Constants.PEDIDO_TABLE, null);
+            cursor.moveToFirst();
+            pedido.id = cursor.getInt(cursor.getColumnIndex("id"));
             for(Item i : pedido.itens){
                 values = new ContentValues();
                 values.put("idItem", i.id);
@@ -60,7 +65,6 @@ public class PedidoRepositorio {
         List<Pedido> pedidos = new ArrayList<>();
 
         Cursor cursor;
-        String[] campos =  {"id", "nome", "mesa", "total", "resumo", "data"};
         SQLiteDatabase db = create.getReadableDatabase();
 
         cursor = db.rawQuery("SELECT ip.idItem, ip.idPedido, p.nome, p.mesa, p.total, p.resumo, p.data, " +
@@ -82,7 +86,6 @@ public class PedidoRepositorio {
                 p.id = cursor.getInt(cursor.getColumnIndex("idPedido"));
                 p.nome = cursor.getString(cursor.getColumnIndex("nome"));
                 p.mesa = cursor.getInt(cursor.getColumnIndex("mesa"));
-                p.resumo = cursor.getString(cursor.getColumnIndex("resumo"));
                 p.data = cursor.getString(cursor.getColumnIndex("data"));
                 pedidos.add(p);
                 id = idAtual;

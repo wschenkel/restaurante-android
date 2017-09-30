@@ -45,14 +45,15 @@ public class NovoPedido extends BaseActivity {
         txtTotal = (TextView) findViewById(R.id.ttValorTotal);
 
         btnItens= (Button) findViewById(R.id.btnItensPedido);
+        if(pedido == null)
+            pedido = (Pedido)getIntent().getSerializableExtra("pedido");
 
-        pedido = (Pedido)getIntent().getSerializableExtra("pedido");
-        if(pedido != null){
+        if(pedido == null)
+            pedido = new Pedido();
+        else{
             disabilitarCampos();
             preencherDadosPedido();
         }
-        else
-            pedido = new Pedido();
 
         btnItens.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -67,6 +68,7 @@ public class NovoPedido extends BaseActivity {
         txtNome.setEnabled(false);
         txtMesa.setEnabled(false);
         btnItens.setVisibility(View.INVISIBLE);
+        findViewById(R.id.btnSalvar).setVisibility(View.INVISIBLE);
     }
 
     private void preencherDadosPedido(){
@@ -95,7 +97,7 @@ public class NovoPedido extends BaseActivity {
     public void salvar(View view){
         try{
             pedido.nome = txtNome.getText().toString();
-            pedido.mesa = Integer.valueOf(txtNome.getText().toString());
+            pedido.mesa = Integer.valueOf(txtMesa.getText().toString());
             new PedidoRepositorio(this).inserir(pedido);
             finish();
         }catch(Exception ex){
