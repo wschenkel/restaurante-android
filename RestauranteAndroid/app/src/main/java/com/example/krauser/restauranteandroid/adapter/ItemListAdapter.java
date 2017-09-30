@@ -50,7 +50,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
         holder.tituloItem.setText(item.titulo);
-        holder.valorItem.setText(String.format("R$ %s", item.valor));
+        holder.valorItem.setText(String.format("R$ %.2f", item.valor));
         if(item.resource > 0) {
             holder.imgItem.setImageResource(item.resource);
         }

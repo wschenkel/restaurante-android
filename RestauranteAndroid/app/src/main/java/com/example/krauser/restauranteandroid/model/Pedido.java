@@ -24,11 +24,11 @@ public class Pedido implements Comparable<Pedido>, Serializable{
         itens = new ArrayList<>();
     }
 
-    public double getTotal(){
+    public String getTotalMoney(){
         double valor = 0;
         for(Item i : itens)
             valor += i.valor;
-        return valor;
+        return String.format("R$ %.2f", valor);
     }
 
     public String getResumo() {

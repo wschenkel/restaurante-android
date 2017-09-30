@@ -42,7 +42,6 @@ public class PedidoListAdapter extends RecyclerView.Adapter<PedidoListAdapter.Vi
         holder.txtMesa.setText(String.format("Mesa: %s", pedido.mesa));
         holder.txtData.setText(pedido.data);
         holder.txtResumo.setText(pedido.getResumo());
-        final Context context = activity;
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

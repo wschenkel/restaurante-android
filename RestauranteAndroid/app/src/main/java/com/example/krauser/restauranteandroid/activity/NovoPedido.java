@@ -76,7 +76,8 @@ public class NovoPedido extends BaseActivity {
             if(pedido.mesa > 0)
                 txtMesa.setText(String.valueOf(pedido.mesa));
             txtNome.setText(pedido.nome);
-            txtTotal.setText(String.format("R$ %s", pedido.getTotal()));
+            
+            txtTotal.setText(String.format("R$ %s", pedido.getTotalMoney()));
             RecyclerView itemRecycler = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
 
             itemRecycler.setHasFixedSize(true);
@@ -97,11 +98,15 @@ public class NovoPedido extends BaseActivity {
     public void salvar(View view){
         try{
             pedido.nome = txtNome.getText().toString();
+            if(txtMesa.getText().toString().isEmpty())
+                throw new Exception("Mesa inválida.");
+            if(pedido.itens.size() == 0)
+                throw new Exception("Insira itens no pedido");
             pedido.mesa = Integer.valueOf(txtMesa.getText().toString());
             new PedidoRepositorio(this).inserir(pedido);
             finish();
         }catch(Exception ex){
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG);
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }
