@@ -1,36 +1,28 @@
 package com.example.krauser.restauranteandroid.adapter;
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.net.Uri;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.model.Item;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
     private List<Item> listItem;
     private Activity activity;
-    private SparseBooleanArray selectedItems;
+    int selected_position = 0;
 
     public ItemListAdapter(List<Item> list, Activity activity){
         this.listItem = list;
         this.activity = activity;
     }
-
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,10 +35,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
+
         holder.tituloItem.setText(item.titulo);
         holder.valorItem.setText(String.format("R$ %s", item.valor));
-        if(item.resource > 0)
+        if(item.resource > 0) {
             holder.imgItem.setImageResource(item.resource);
+        }
+
+        holder.itemView.setBackgroundColor(selected_position == position ? Color.GRAY : Color.WHITE);
     }
 
     @Override
@@ -54,7 +50,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         return listItem.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tituloItem;
         public TextView valorItem;
         public ImageView imgItem;
@@ -62,11 +58,27 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         public ViewHolder(View itemView){
             super(itemView);
+            itemView.setOnClickListener(this);
+
             tituloItem = itemView.findViewById(R.id.tituloItem);
             valorItem = itemView.findViewById(R.id.valorItem);
             imgItem = itemView.findViewById(R.id.imgItem);
             cardViewItem = itemView.findViewById(R.id.cardViewItem);
             cardViewItem.getBackground().setAlpha(128);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // Below line is just like a safety check, because sometimes holder could be null,
+            // in that case, getAdapterPosition() will return RecyclerView.NO_POSITION
+            if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
+
+            // Updating old as well as new positions
+            notifyItemChanged(selected_position);
+            selected_position = getAdapterPosition();
+            notifyItemChanged(selected_position);
+
+            // Do your another stuff for your onClick
         }
     }
 }
