@@ -63,10 +63,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             if(selectable){
                 if(selectedItens.contains(item)){
                     selectedItens.remove(item);
-                    holder.itemView.setBackgroundColor(Color.GRAY);
+                    holder.itemView.setBackgroundColor(Color.WHITE);
+                    holder.itemView.getBackground().setAlpha(128);
                 }else{
                     selectedItens.add(item);
-                    holder.itemView.setBackgroundColor(Color.WHITE);
+                    holder.itemView.setBackgroundColor(Color.GRAY);
+                    holder.itemView.getBackground().setAlpha(128);
                 }
             }
         }else{

@@ -23,11 +23,17 @@ public class PedidoRepositorio {
         create = new CreateDatabase(c);
     }
 
-    public void inserir(Pedido pedido) {
+    public void inserir(Pedido pedido) throws Exception {
         ContentValues values = new ContentValues();
         SQLiteDatabase db = create.getWritableDatabase();
 
         pedido.data = Helper.dateToString(new Date());
+
+        if(pedido.mesa == 0 || pedido.mesa > 99)
+            throw new Exception("Mesa inválida.");
+
+        if(pedido.nome.isEmpty())
+            throw new Exception("Nome inválido.");
 
         values.put("nome", pedido.nome);
         values.put("mesa", pedido.mesa);

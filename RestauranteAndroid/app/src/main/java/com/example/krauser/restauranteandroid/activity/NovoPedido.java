@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.adapter.ItemListAdapter;
 import com.example.krauser.restauranteandroid.infra.repositorio.ItemRepositorio;
+import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositorio;
 import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
@@ -85,9 +86,20 @@ public class NovoPedido extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(data.hasExtra("pedido")){
+        if(data != null && data.hasExtra("pedido")){
             this.pedido = (Pedido)data.getSerializableExtra("pedido");
             preencherDadosPedido();
+        }
+    }
+
+    public void salvar(View view){
+        try{
+            pedido.nome = txtNome.getText().toString();
+            pedido.mesa = Integer.valueOf(txtNome.getText().toString());
+            new PedidoRepositorio(this).inserir(pedido);
+            finish();
+        }catch(Exception ex){
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG);
         }
     }
 }
