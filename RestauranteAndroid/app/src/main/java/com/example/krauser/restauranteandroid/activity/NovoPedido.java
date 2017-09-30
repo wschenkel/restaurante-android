@@ -29,6 +29,7 @@ public class NovoPedido extends BaseActivity {
     Button btnItens;
     TextView txtTotal;
     Pedido pedido;
+    boolean isView = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class NovoPedido extends BaseActivity {
         initializeComponents();
     }
 
-    private void initializeComponents(){
+    private void initializeComponents() {
+
         setTitle("Novo Pedido");
 
         txtMesa = (EditText)findViewById(R.id.txtNumeroMesa);
@@ -45,12 +47,12 @@ public class NovoPedido extends BaseActivity {
         txtTotal = (TextView) findViewById(R.id.ttValorTotal);
 
         btnItens= (Button) findViewById(R.id.btnItensPedido);
-        if(pedido == null)
-            pedido = (Pedido)getIntent().getSerializableExtra("pedido");
 
-        if(pedido == null)
+        isView = (pedido = (Pedido)getIntent().getSerializableExtra("pedido")) != null;
+
+        if(!isView)
             pedido = new Pedido();
-        else{
+        else {
             disabilitarCampos();
             preencherDadosPedido();
         }
@@ -73,9 +75,16 @@ public class NovoPedido extends BaseActivity {
 
     private void preencherDadosPedido(){
         if(this.pedido != null){
-            if(pedido.mesa > 0)
+            if(pedido.mesa > 0) {
                 txtMesa.setText(String.valueOf(pedido.mesa));
-            txtNome.setText(pedido.nome);
+            }
+
+            if (pedido.nome == null) {
+                txtNome.setText(String.valueOf(txtNome.getText()));
+            } else {
+                txtNome.setText(String.valueOf(pedido.nome));
+            }
+
             txtTotal.setText(String.format("R$ %s", pedido.getTotal()));
             RecyclerView itemRecycler = (RecyclerView)findViewById(R.id.itemPedidoRecyclerView);
 
@@ -89,6 +98,7 @@ public class NovoPedido extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && data.hasExtra("pedido")){
+            isView = false;
             this.pedido = (Pedido)data.getSerializableExtra("pedido");
             preencherDadosPedido();
         }
@@ -96,7 +106,7 @@ public class NovoPedido extends BaseActivity {
 
     public void salvar(View view){
         try{
-            pedido.nome = txtNome.getText().toString();
+            pedido.nome = String.valueOf(txtNome.getText());
             pedido.mesa = Integer.valueOf(txtMesa.getText().toString());
             new PedidoRepositorio(this).inserir(pedido);
             finish();
