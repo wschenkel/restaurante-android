@@ -44,12 +44,14 @@ public class MainActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PedidoListAdapter(pedidos, this));
 
+
         Button novoPedido = (Button) findViewById(R.id.buttonNovoPedido);
         novoPedido.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 goPedido(v);
             }
         });
+
     }
 
     public void goPedido(View view){

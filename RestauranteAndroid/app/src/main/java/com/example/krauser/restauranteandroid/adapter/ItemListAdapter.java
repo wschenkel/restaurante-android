@@ -1,6 +1,7 @@
 package com.example.krauser.restauranteandroid.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.CardView;
@@ -8,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.krauser.restauranteandroid.R;
+import com.example.krauser.restauranteandroid.activity.NovoPedido;
 import com.example.krauser.restauranteandroid.model.Item;
 
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
-        ArrayList<Item> i = new ArrayList<Item>();
+        ArrayList<String> i = new ArrayList<String>();
 
 
         holder.tituloItem.setText(item.titulo);
@@ -50,12 +53,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         if (selected_position == position) {
             if (holder.itemView.getBackground().equals(Color.GRAY)) {
                 holder.itemView.setBackgroundColor(Color.WHITE);
+                i.remove(holder.cardViewItem.findViewById(R.id.cardViewItem).toString());
             } else {
                 holder.itemView.setBackgroundColor(Color.GRAY);
+                i.add(holder.cardViewItem.findViewById(R.id.cardViewItem).toString());
             }
         }
 
-        //holder.itemView.setBackgroundColor(selected_position == position ? Color.GRAY : Color.WHITE);
+        /*
+        holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Intent pedidoActivity = new Intent(activity, NovoPedido.class);
+            pedidoActivity.putExtra("pedido", pedido);
+            activity.startActivity(pedidoActivity);
+            }
+        });*/
     }
 
     @Override
@@ -82,16 +95,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            // Below line is just like a safety check, because sometimes holder could be null,
-            // in that case, getAdapterPosition() will return RecyclerView.NO_POSITION
             if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
-
-            // Updating old as well as new positions
             notifyItemChanged(selected_position);
             selected_position = getAdapterPosition();
             notifyItemChanged(selected_position);
-
-            // Do your another stuff for your onClick
         }
     }
 }

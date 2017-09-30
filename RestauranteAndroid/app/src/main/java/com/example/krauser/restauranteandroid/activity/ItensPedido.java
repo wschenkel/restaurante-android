@@ -1,5 +1,6 @@
 package com.example.krauser.restauranteandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
@@ -40,6 +42,13 @@ public class ItensPedido extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(new ItemListAdapter(itens, this));
+
+        // Start outra activity;
+        Button novoPedido = (Button) findViewById(R.id.btnEscolher);
+        novoPedido.setOnClickListener(new View.OnClickListener() {
+            Intent it = new Intent(NovoPedido.this, ItensPedido.class);
+            startActivity(it);
+        });
     }
 
     @Override
