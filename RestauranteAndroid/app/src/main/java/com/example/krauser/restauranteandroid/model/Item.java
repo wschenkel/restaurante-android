@@ -61,7 +61,7 @@ public class Item implements Serializable {
         item.titulo = "Drink de whisky Valilla";
         item.descricao = "Um belo drink de jack daniels";
         item.resource = R.drawable.whisky;
-        item.categoria = "sobremesa";
+        item.categoria = "bebida";
         item.valor = 29.38;
 
         itens.add(item);

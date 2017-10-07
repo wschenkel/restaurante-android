@@ -16,6 +16,7 @@ import com.example.krauser.restauranteandroid.model.Pedido;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class MainActivity extends BaseActivity {
 

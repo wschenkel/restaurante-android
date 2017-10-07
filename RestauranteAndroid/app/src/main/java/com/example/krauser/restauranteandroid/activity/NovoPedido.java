@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.krauser.restauranteandroid.R;
+import com.example.krauser.restauranteandroid.adapter.FilterableList;
 import com.example.krauser.restauranteandroid.adapter.ItemListAdapter;
 import com.example.krauser.restauranteandroid.infra.repositorio.ItemRepositorio;
 import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositorio;
@@ -90,7 +91,9 @@ public class NovoPedido extends BaseActivity {
             itemRecycler.setHasFixedSize(true);
             itemRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-            itemRecycler.setAdapter(new ItemListAdapter(pedido.itens, this));
+            FilterableList<Item> itens = new FilterableList<>(pedido.itens);
+
+            itemRecycler.setAdapter(new ItemListAdapter(itens, this));
         }
     }
 
