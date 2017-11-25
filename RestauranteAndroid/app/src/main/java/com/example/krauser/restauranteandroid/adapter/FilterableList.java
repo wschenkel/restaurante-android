@@ -37,6 +37,10 @@ public class FilterableList<T> implements List {
         refresh();
     }
 
+    public List<Item> getAllItens() {
+        return allItens;
+    }
+
     private void refresh(){
         if(filter == null || filter.isEmpty() || filter.toLowerCase().equals("todos")){
             itens = allItens;

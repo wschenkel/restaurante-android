@@ -54,7 +54,15 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     }
 
     public List<Item> getSelectedItens(){
-        return new ArrayList<>();
+        List<Item> listSelecionados = new ArrayList<Item>();
+
+        for (Item item : itens.getAllItens()) {
+            if (selectedIds.contains(String.valueOf(item.id))) {
+                listSelecionados.add(item);
+            }
+         }
+
+        return listSelecionados;
     }
 
     @Override
@@ -64,6 +72,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         holder.tituloItem.setText(item.titulo);
         holder.valorItem.setText(String.format("R$ %.2f", item.valor));
         holder.item = item;
+
         if(item.resource > 0) {
             holder.imgItem.setImageResource(item.resource);
         }
