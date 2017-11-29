@@ -4,9 +4,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.krauser.restauranteandroid.activity.ItensPedido;
 import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Item;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +27,12 @@ public class ItemRepositorio {
         create = new CreateDatabase(c);
     }
     private String tbName = Constants.ITEM_TABLE;
+    private static final String URL = "https://restaurante-api-react.herokuapp.com/api/items";
 
     public List<Item> obterTodos(){
 
         List<Item> itens = new ArrayList<>();
+
 
         Cursor cursor;
         String[] campos =  {"id", "titulo", "descricao", "resource", "categoria", "valor"};

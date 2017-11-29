@@ -2,8 +2,10 @@ package com.example.krauser.restauranteandroid.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -13,6 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.adapter.FilterableList;
 import com.example.krauser.restauranteandroid.adapter.ItemListAdapter;
@@ -20,8 +30,14 @@ import com.example.krauser.restauranteandroid.infra.repositorio.ItemRepositorio;
 import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.Pedido;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class ItensPedido extends BaseActivity {
@@ -32,6 +48,7 @@ public class ItensPedido extends BaseActivity {
     private String currentFilter;
     private Predicate<Item> filterOk;
 
+    String URL = "https://restaurante-api-react.herokuapp.com/api/items";
 
     private boolean filterOk(Item item){
         if(currentFilter == null || currentFilter.isEmpty())
@@ -47,12 +64,48 @@ public class ItensPedido extends BaseActivity {
         pedido = (Pedido)getIntent().getSerializableExtra("pedido");
 
         List<Item> itens = new ArrayList<>();
-        try{
-            ItemRepositorio repositorio = new ItemRepositorio(this);
-            itens = repositorio.obterTodos();
-        }catch(Exception ex){
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        RequestQueue fila = Volley.newRequestQueue(this);
+
+        //try{
+            //ItemRepositorio repositorio = new ItemRepositorio(this);
+            //itens = repositorio.obterTodos();
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray array = response.getJSONArray("items");
+
+                            for (int x = 0; x < array.length(); x++) {
+                                JSONObject item = array.getJSONObject(x);
+                                Item i = new Item();
+                                i.id = item.getInt("id");
+                                i.titulo = item.getString("name");
+                                i.descricao = item.getString("description");
+                                i.categoria = item.getString("category");
+                                i.valor = item.getLong("value");
+                                i.resource = 0;
+                                itens.add(i);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                }
+        );
+
+        fila.add(request);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoInternaRecyclerView);
 
