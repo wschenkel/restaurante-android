@@ -95,6 +95,9 @@ public class ItensPedido extends BaseActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+                        doiT(itens);
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -107,16 +110,6 @@ public class ItensPedido extends BaseActivity {
 
         fila.add(request);
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoInternaRecyclerView);
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        FilterableList list = new FilterableList<>(itens);
-
-        adapter = new ItemListAdapter(list, this);
-
-        recyclerView.setAdapter(adapter);
-        adapter.setSelectable(true);
 
         Button btnSelecionar = (Button) findViewById(R.id.btnEscolher);
 
@@ -146,5 +139,18 @@ public class ItensPedido extends BaseActivity {
             adapter.setFilter(item.toString());
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void doiT(List<Item> itens) {
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoInternaRecyclerView);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        FilterableList list = new FilterableList<>(itens);
+
+        adapter = new ItemListAdapter(list, this);
+
+        recyclerView.setAdapter(adapter);
+        adapter.setSelectable(true);
     }
 }
