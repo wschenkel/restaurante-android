@@ -77,12 +77,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         if(item.resource != null) {
             Picasso.with(activity).load(item.resource).into(holder.imgItem);
         }
+
         holder.context = activity;
 
-        if(selectedIds.contains(String.valueOf(item.id))){
+        if (selectedIds.contains(String.valueOf(item.id))){
             holder.itemView.setBackgroundColor(Color.GRAY);
             holder.itemView.getBackground().setAlpha(128);
-        }else{
+        } else {
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.itemView.getBackground().setAlpha(128);
         }
@@ -96,11 +97,11 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     @Override
     public void notifyClick(ViewHolder holder) {
         Item item = holder.item;
-        if(selectedIds.contains(String.valueOf(item.id))){
+        if (selectedIds.contains(String.valueOf(item.id))) {
             selectedIds.remove(String.valueOf(item.id));
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.itemView.getBackground().setAlpha(128);
-        }else{
+        } else {
             selectedIds.add(String.valueOf(item.id));
             holder.itemView.setBackgroundColor(Color.GRAY);
             holder.itemView.getBackground().setAlpha(128);
@@ -116,7 +117,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         public OnItemClickListener listener;
         public Item item;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
 

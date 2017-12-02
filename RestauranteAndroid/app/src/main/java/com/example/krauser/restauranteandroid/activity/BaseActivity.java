@@ -14,6 +14,6 @@ public class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         View rootView = this.getWindow().getDecorView().getRootView();
-        rootView.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background));
+        //rootView.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.background));
     }
 }

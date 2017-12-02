@@ -23,6 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Fazer pedido" />
+            android:background="@color/colorButton"
+            android:text="Fazer pedido"
+            android:textColor="#ffffff" />
     </LinearLayout>
 </LinearLayout>

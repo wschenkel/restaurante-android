@@ -15,8 +15,10 @@
 
     <Button
         android:id="@+id/btnEscolher"
-        android:layout_height="50dp"
         android:layout_width="match_parent"
-        android:text="OK"/>
+        android:layout_height="50dp"
+        android:background="@color/colorButton"
+        android:text="OK"
+        android:textColor="#ffffff" />
 
 </LinearLayout>

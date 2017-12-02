@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="60dp">
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="70dp">
@@ -17,10 +18,11 @@
                 android:id="@+id/txtNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:hint="Nome"
-                android:textSize="30dp"
                 android:inputType="textPersonName"
-                android:textColorLink="@color/colorPrimary"/>
+                android:textColorLink="@color/colorPrimary"
+                android:textSize="20dp" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -30,7 +32,7 @@
                 android:id="@+id/txtNumeroMesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:hint="Número da mesa"
                 android:inputType="number"
                 android:textColorLink="@color/colorPrimary" />
@@ -76,17 +78,23 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_margin="5dp">
+
         <Button
             android:id="@+id/btnItensPedido"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="Adicionar itens" />
+            android:background="@color/colorButton"
+            android:text="Adicionar itens"
+            android:textColor="#ffffff" />
+
         <Button
             android:id="@+id/btnSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorButton"
+            android:onClick="salvar"
             android:text="Salvar"
-            android:onClick="salvar"/>
+            android:textColor="#ffffff" />
     </LinearLayout>
 </LinearLayout>

@@ -33,7 +33,6 @@ public class ItemRepositorio {
 
         List<Item> itens = new ArrayList<>();
 
-
         Cursor cursor;
         String[] campos =  {"id", "titulo", "descricao", "resource", "categoria", "valor"};
         SQLiteDatabase db = create.getReadableDatabase();
