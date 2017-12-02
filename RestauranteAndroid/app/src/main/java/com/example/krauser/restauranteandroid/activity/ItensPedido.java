@@ -88,7 +88,7 @@ public class ItensPedido extends BaseActivity {
                                 i.descricao = item.getString("description");
                                 i.categoria = item.getString("category");
                                 i.valor = item.getLong("value");
-                                i.resource = 0;
+                                i.resource = item.getString("imagePath");
                                 itens.add(i);
                             }
 
@@ -96,7 +96,7 @@ public class ItensPedido extends BaseActivity {
                             e.printStackTrace();
                         }
 
-                        doiT(itens);
+                        afterResponse(itens);
 
                     }
                 },
@@ -141,7 +141,7 @@ public class ItensPedido extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void doiT(List<Item> itens) {
+    public void afterResponse(List<Item> itens) {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.itemPedidoInternaRecyclerView);
 
         recyclerView.setHasFixedSize(true);

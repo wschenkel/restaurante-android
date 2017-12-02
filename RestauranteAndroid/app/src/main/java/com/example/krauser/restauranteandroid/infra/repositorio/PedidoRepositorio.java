@@ -54,9 +54,9 @@ public class PedidoRepositorio {
                 values.put("idPedido", pedido.id);
                 db.insertOrThrow(Constants.ITEM_PEDIDO_TABLE, null, values);
             }
-        }catch(Exception ex){
+        } catch(Exception ex){
             throw new SQLException("Erro ao inserir registro - " + ex.getMessage());
-        }finally {
+        } finally {
             db.close();
         }
     }
@@ -95,7 +95,7 @@ public class PedidoRepositorio {
             i.id = cursor.getInt(cursor.getColumnIndex("idItem"));
             i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));
             i.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
-            i.resource = cursor.getInt(cursor.getColumnIndex("resource"));
+            i.resource = cursor.getString(cursor.getColumnIndex("resource"));
             i.categoria = cursor.getString(cursor.getColumnIndex("categoria"));
             i.valor = cursor.getDouble(cursor.getColumnIndex("valor"));
             p.itens.add(i);

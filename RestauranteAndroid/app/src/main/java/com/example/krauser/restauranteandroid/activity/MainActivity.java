@@ -12,6 +12,7 @@ import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.adapter.PedidoListAdapter;
 import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositorio;
 import com.example.krauser.restauranteandroid.model.Pedido;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Collections;

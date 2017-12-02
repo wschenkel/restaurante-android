@@ -46,7 +46,7 @@ public class ItemRepositorio {
             i.id = cursor.getInt(cursor.getColumnIndex("id"));
             i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));
             i.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
-            i.resource = cursor.getInt(cursor.getColumnIndex("resource"));
+            i.resource = cursor.getString(cursor.getColumnIndex("resource"));
             i.categoria = cursor.getString(cursor.getColumnIndex("categoria"));
             i.valor = cursor.getDouble(cursor.getColumnIndex("valor"));
             itens.add(i);

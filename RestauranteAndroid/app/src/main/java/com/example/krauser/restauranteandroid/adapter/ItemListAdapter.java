@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.model.Item;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +74,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         holder.valorItem.setText(String.format("R$ %.2f", item.valor));
         holder.item = item;
 
-        if(item.resource > 0) {
-            holder.imgItem.setImageResource(item.resource);
+        if(item.resource != null) {
+            Picasso.with(activity).load(item.resource).into(holder.imgItem);
         }
         holder.context = activity;
 
