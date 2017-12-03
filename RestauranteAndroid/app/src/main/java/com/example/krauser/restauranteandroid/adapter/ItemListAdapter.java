@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.krauser.restauranteandroid.R;
+import com.example.krauser.restauranteandroid.listener.OnItemClickListener;
 import com.example.krauser.restauranteandroid.model.Item;
 import com.squareup.picasso.Picasso;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> implements OnItemClickListener{
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> implements OnItemClickListener {
 
     private FilterableList<Item> itens;
     private Activity activity;
@@ -74,8 +75,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         holder.valorItem.setText(String.format("R$ %.2f", item.valor));
         holder.item = item;
 
-        if(item.resource != null) {
-            Picasso.with(activity).load(item.resource).into(holder.imgItem);
+        if(item.imagem != null) {
+            Picasso.with(activity).load(item.imagem).into(holder.imgItem);
         }
 
         holder.context = activity;

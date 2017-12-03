@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RestauranteAndroid</string>
+    <string name="app_name">Restaurante Gourmet</string>
+    <string name="store_key">SHARED_PREFERENCES_GOURMET</string>
+    <string name="token_fcm">TOKEN_FCM</string>
 </resources>

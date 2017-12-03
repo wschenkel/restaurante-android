@@ -23,10 +23,7 @@ public class CreateDatabase extends SQLiteOpenHelper{
         db.execSQL(Pedido.getSqlCreateTable());
         db.execSQL(Item.getSqlCreateTable());
         db.execSQL(getCreateTableItemPedido());
-
-        inserirItensPreDefinidos(db);
-        inserirPedidosPreDefinidos(db);
-        bindPedidoItem(db);
+        db.execSQL("CREATE TABLE token (token TEXT)");
     }
 
     @Override
@@ -34,6 +31,7 @@ public class CreateDatabase extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + Constants.ITEM_PEDIDO_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.ITEM_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.PEDIDO_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TOKEN_TABLE);
         onCreate(db);
     }
 
@@ -44,25 +42,5 @@ public class CreateDatabase extends SQLiteOpenHelper{
                 "FOREIGN KEY (idItem) REFERENCES " + Constants.ITEM_TABLE + "(id)," +
                 "FOREIGN KEY (idPedido) REFERENCES " + Constants.PEDIDO_TABLE + "(id))";
         return sql;
-    }
-
-    private void inserirPedidosPreDefinidos(SQLiteDatabase db){
-        String sql = "INSERT INTO " + Constants.PEDIDO_TABLE + " (nome, mesa, resumo, data) VALUES ('%s', %s, '%s', '%s')";
-        for(Pedido p : Pedido.getPedidosIniciais())
-            db.execSQL(String.format(sql, p.nome, p.mesa, p.getResumo(), p.data));
-    }
-
-    private void inserirItensPreDefinidos(SQLiteDatabase db) {
-        String sql = "INSERT INTO " + Constants.ITEM_TABLE + " (titulo, descricao, resource, categoria, valor) VALUES ('%s', '%s', %s, '%s', %s)";
-        for(Item item : Item.getItensIniciais())
-            db.execSQL(String.format(sql, item.titulo, item.descricao, item.resource, item.categoria, item.valor));
-    }
-
-    private void bindPedidoItem(SQLiteDatabase db){
-        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (1,1)");
-        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (1,1)");
-        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (1,2)");
-        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (2,1)");
-        db.execSQL("INSERT INTO " + Constants.ITEM_PEDIDO_TABLE + "(idPedido, idItem) VALUES (2,2)");
     }
 }

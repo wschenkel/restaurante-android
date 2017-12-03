@@ -1,24 +1,17 @@
 package com.example.krauser.restauranteandroid.infra.repositorio;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.krauser.restauranteandroid.activity.ItensPedido;
-import com.example.krauser.restauranteandroid.util.Constants;
 import com.example.krauser.restauranteandroid.infra.db.CreateDatabase;
 import com.example.krauser.restauranteandroid.model.Item;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.krauser.restauranteandroid.util.Constants;
+import com.example.krauser.restauranteandroid.util.Helper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ItemRepositorio {
@@ -26,15 +19,13 @@ public class ItemRepositorio {
     public ItemRepositorio(Context c){
         create = new CreateDatabase(c);
     }
-    private String tbName = Constants.ITEM_TABLE;
-    private static final String URL = "https://restaurante-api-react.herokuapp.com/api/items";
 
     public List<Item> obterTodos(){
 
         List<Item> itens = new ArrayList<>();
 
         Cursor cursor;
-        String[] campos =  {"id", "titulo", "descricao", "resource", "categoria", "valor"};
+        String[] campos =  {"id", "titulo", "descricao", "imagem", "categoria", "valor"};
         SQLiteDatabase db = create.getReadableDatabase();
         cursor = db.query(Constants.ITEM_TABLE, campos, null, null, null, null, null);
 
@@ -45,7 +36,7 @@ public class ItemRepositorio {
             i.id = cursor.getInt(cursor.getColumnIndex("id"));
             i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));
             i.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
-            i.resource = cursor.getString(cursor.getColumnIndex("resource"));
+            i.imagem = cursor.getString(cursor.getColumnIndex("imagem"));
             i.categoria = cursor.getString(cursor.getColumnIndex("categoria"));
             i.valor = cursor.getDouble(cursor.getColumnIndex("valor"));
             itens.add(i);
@@ -55,5 +46,24 @@ public class ItemRepositorio {
         db.close();
 
         return itens;
+    }
+
+    public void inserir(Item item){
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = create.getWritableDatabase();
+
+        values.put("id", item.id);
+        values.put("titulo", item.titulo);
+        values.put("descricao", item.descricao);
+        values.put("imagem", item.imagem);
+        values.put("categoria", item.categoria);
+        values.put("valor", item.valor);
+
+        db.insertOrThrow(Constants.ITEM_TABLE, null, values);
+    }
+
+    public void removerTodos(){
+        SQLiteDatabase db = create.getWritableDatabase();
+        db.execSQL("delete from " + Constants.ITEM_TABLE);
     }
 }

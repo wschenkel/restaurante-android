@@ -11,15 +11,17 @@ import android.widget.Toast;
 import com.example.krauser.restauranteandroid.R;
 import com.example.krauser.restauranteandroid.adapter.PedidoListAdapter;
 import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositorio;
+import com.example.krauser.restauranteandroid.infra.repositorio.TokenRepository;
+import com.example.krauser.restauranteandroid.listener.OnTokenListener;
 import com.example.krauser.restauranteandroid.model.Pedido;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.example.krauser.restauranteandroid.service.ItemService;
+import com.example.krauser.restauranteandroid.service.TokenService;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnTokenListener{
 
     RecyclerView recyclerView;
 
@@ -28,12 +30,20 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeComponents();
+        updateToken();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         carregarPedidos();
+    }
+
+    private void updateToken(){
+        TokenService tokenService = new TokenService(this);
+        tokenService.setListener(this);
+        showLoader("Atualizando token");
+        tokenService.update();
     }
 
     private void initializeComponents(){
@@ -65,5 +75,12 @@ public class MainActivity extends BaseActivity {
     public void goPedido(View view){
         Intent it = new Intent(this, NovoPedido.class);
         startActivity(it);
+    }
+
+    @Override
+    public void tokenUpdated(String msg) {
+        hideLoader();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        syncData();
     }
 }

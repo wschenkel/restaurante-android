@@ -2,6 +2,7 @@ package com.example.krauser.restauranteandroid.infra.cloudMessage;
 
 import android.util.Log;
 
+import com.example.krauser.restauranteandroid.infra.repositorio.TokenRepository;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -15,9 +16,7 @@ public class CDCInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         super.onTokenRefresh();
         String token = FirebaseInstanceId.getInstance().getToken();
-
-        System.out.println(token);
-
+        TokenRepository.currentToken = token;
         if (token != null) {
             Log.i("token firebase", token);
             System.out.println(token);

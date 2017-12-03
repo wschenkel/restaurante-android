@@ -68,7 +68,7 @@ public class PedidoRepositorio {
         SQLiteDatabase db = create.getReadableDatabase();
 
         cursor = db.rawQuery("SELECT ip.idItem, ip.idPedido, p.nome, p.mesa, p.total, p.resumo, p.data, " +
-                        "i.titulo, i.descricao, i.resource, i.categoria, i.valor " +
+                        "i.titulo, i.descricao, i.imagem, i.categoria, i.valor " +
                         "FROM " + Constants.PEDIDO_TABLE + " AS p " +
                         "JOIN " + Constants.ITEM_PEDIDO_TABLE + " AS ip ON ip.idPedido = p.id " +
                         "JOIN " + Constants.ITEM_TABLE + " AS i ON i.id = ip.idItem " +
@@ -95,7 +95,7 @@ public class PedidoRepositorio {
             i.id = cursor.getInt(cursor.getColumnIndex("idItem"));
             i.titulo = cursor.getString(cursor.getColumnIndex("titulo"));
             i.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
-            i.resource = cursor.getString(cursor.getColumnIndex("resource"));
+            i.imagem = cursor.getString(cursor.getColumnIndex("imagem"));
             i.categoria = cursor.getString(cursor.getColumnIndex("categoria"));
             i.valor = cursor.getDouble(cursor.getColumnIndex("valor"));
             p.itens.add(i);
@@ -105,5 +105,12 @@ public class PedidoRepositorio {
         }
         db.close();
         return pedidos;
+    }
+
+    public void removerTodos(){
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = create.getWritableDatabase();
+        db.execSQL("delete from " + Constants.ITEM_PEDIDO_TABLE);
+        db.execSQL("delete from " + Constants.PEDIDO_TABLE);
     }
 }
