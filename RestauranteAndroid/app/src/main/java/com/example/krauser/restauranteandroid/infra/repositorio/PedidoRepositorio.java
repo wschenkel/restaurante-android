@@ -27,8 +27,6 @@ public class PedidoRepositorio {
         ContentValues values = new ContentValues();
         SQLiteDatabase db = create.getWritableDatabase();
 
-        pedido.data = Helper.dateToString(new Date());
-
         if(pedido.mesa == 0 || pedido.mesa > 99)
             throw new Exception("Mesa inválida.");
 

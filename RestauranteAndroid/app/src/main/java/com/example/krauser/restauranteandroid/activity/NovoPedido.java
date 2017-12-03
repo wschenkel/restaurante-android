@@ -19,8 +19,10 @@ import com.example.krauser.restauranteandroid.infra.repositorio.ItemRepositorio;
 import com.example.krauser.restauranteandroid.infra.repositorio.PedidoRepositorio;
 import com.example.krauser.restauranteandroid.model.Item;
 import com.example.krauser.restauranteandroid.model.Pedido;
+import com.example.krauser.restauranteandroid.util.Helper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NovoPedido extends BaseActivity {
@@ -114,6 +116,7 @@ public class NovoPedido extends BaseActivity {
                 throw new Exception("Insira itens no pedido");
             pedido.nome = String.valueOf(txtNome.getText());
             pedido.mesa = Integer.valueOf(txtMesa.getText().toString());
+            pedido.data = Helper.dateToString(new Date());
             new PedidoRepositorio(this).inserir(pedido);
             finish();
         }catch(Exception ex){

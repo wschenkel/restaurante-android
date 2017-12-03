@@ -83,4 +83,10 @@ public class MainActivity extends BaseActivity implements OnTokenListener{
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         syncData();
     }
+
+    @Override
+    public void orderSynchronized(int erro) {
+        super.orderSynchronized(erro);
+        carregarPedidos();
+    }
 }
