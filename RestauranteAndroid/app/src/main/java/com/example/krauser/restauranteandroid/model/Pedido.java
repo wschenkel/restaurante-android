@@ -88,4 +88,17 @@ public class Pedido implements Comparable<Pedido>, Serializable{
         else
             return 0;
     }
+
+    public JSONObject toJson() throws JSONException{
+        JSONObject json = new JSONObject();
+        json.put ("date", data);
+        json.put ("table", mesa);
+        json.put ("name", nome);
+        json.put ("resume", getResumo());
+        JSONArray array = new JSONArray();
+        for(Item i : itens)
+            array.put(i.id);
+        json.put("items", array);
+        return json;
+    }
 }

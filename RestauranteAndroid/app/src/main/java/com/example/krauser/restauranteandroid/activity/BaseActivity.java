@@ -62,13 +62,19 @@ public class BaseActivity extends AppCompatActivity implements OnOrderSychronize
             pedidoService.syncData();
         }else{
             hideLoader();
-            Toast.makeText(this, "Não foi possível sincronizar os itens", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Não foi possível sincronizar os dados", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void orderSynchronized(int erro) {
-        String msg = erro == 0 ? "Os dados foram sincronizados." : "Não foi possível sincronizar os itens";
+        String msg = erro == 0 ? "Os dados foram sincronizados" : "Não foi possível sincronizar os dados";
+        hideLoader();
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void orderAdded(int erro, String msg) {
         hideLoader();
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }

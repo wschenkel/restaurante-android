@@ -116,8 +116,9 @@ public class NovoPedido extends BaseActivity {
                 throw new Exception("Insira itens no pedido");
             pedido.nome = String.valueOf(txtNome.getText());
             pedido.mesa = Integer.valueOf(txtMesa.getText().toString());
-            pedido.data = Helper.dateToString(new Date());
-            new PedidoRepositorio(this).inserir(pedido);
+            pedido.data = new Date().toString();
+            pedidoService.sendOrder(pedido);
+            //new PedidoRepositorio(this).inserir(pedido);
             finish();
         }catch(Exception ex){
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
